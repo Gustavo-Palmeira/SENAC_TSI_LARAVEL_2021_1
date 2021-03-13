@@ -20,4 +20,8 @@ class Vendas extends Model
 
     // Nome da tabela
     protected $table = 'Vendas';
+
+    public function cliente() {
+        return $this->belongsTo(Clientes::class, 'id');
+    }
 }

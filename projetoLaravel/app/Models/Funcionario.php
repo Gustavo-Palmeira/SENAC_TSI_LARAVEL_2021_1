@@ -20,4 +20,18 @@ class Funcionario extends Model
 
     // Nome da tabela
     protected $table = 'Funcionario';
+
+    public function vendas() {
+        return $this->hasMany( Vendas::class, 'funcionario_id' );
+    } 
+
+    /* Apenas teste */
+    /* public function vendas() {
+        return $this->hasManyThrough(
+            Clientes::class,
+            Vendas::class,
+            'id', 
+            'id' 
+        );
+    } */
 }
