@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\FuncionariosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,4 +49,16 @@ route::get('/product', function() {
                                                 'edicao2' => '2'],
                                             [ 'id2' => 3,
                                                 'edicao2' => '2.1']]]);
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['prefix' => 'clientes'], function (){
+    Route::get('/listar', [ClientesController::class, 'listar'])->middleware('auth');
+});
+
+Route::group(['prefix' => 'funcionarios'], function (){
+    Route::get('/listar', [FuncionariosController::class, 'listar'])->middleware('auth');
 });
