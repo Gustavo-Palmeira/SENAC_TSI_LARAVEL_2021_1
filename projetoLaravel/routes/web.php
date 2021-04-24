@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\FuncionariosController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,4 +63,9 @@ Route::group(['prefix' => 'clientes'], function (){
 
 Route::group(['prefix' => 'funcionarios'], function (){
     Route::get('/listar', [FuncionariosController::class, 'listar'])->middleware('auth');
+});
+
+Route::group(['middleware' => ['auth']], function(){
+    Route::resource('/users', UserController::class);
+    Route::resource('/roles', RoleController::class);
 });
