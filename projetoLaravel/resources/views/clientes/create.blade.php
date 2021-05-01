@@ -6,11 +6,11 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Cadastrar usuário</h2>
+                <h2>Cadastrar cliente</h2>
             </div>
 
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('users.index') }}"> Voltar</a>
+                <a class="btn btn-primary" href="{{ route('clientes.index') }}"> Voltar</a>
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@
 
     @endif
 
-    {!! Form::open(array('route' => 'users.store','method'=>'POST')) !!}
+    {!! Form::open(array('route' => 'clientes.store','method'=>'POST')) !!}
 
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -53,18 +53,18 @@
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Senha:</strong>
+                <strong>x</strong>
 
-                {!! Form::password('password', array('placeholder' => 'Senha','class' => 'form-control')) !!}
+                
 
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Confirme a senha:</strong>
+                <strong>x</strong>
 
-                {!! Form::password('confirm-password', array('placeholder' => 'Confirme a senha','class' => 'form-control')) !!}
+               
 
             </div>
         </div>

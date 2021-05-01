@@ -59,6 +59,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['prefix' => 'clientes'], function (){
     Route::get('/listar', [ClientesController::class, 'listar'])->middleware('auth');
+    Route::get('/', [ClientesController::class, 'index'])->middleware('auth');;
 });
 
 Route::group(['prefix' => 'funcionarios'], function (){

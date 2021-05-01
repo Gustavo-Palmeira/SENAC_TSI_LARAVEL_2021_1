@@ -21,7 +21,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name', 'name')->all();
-        return view('users.create', compact());
+        return view('users.create', compact($roles));
     }
 
     public function store(Request $request)
