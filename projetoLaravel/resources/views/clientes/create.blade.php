@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="container m-5">
+
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
@@ -22,11 +23,11 @@
     <div class="alert alert-danger">
         <strong>Ops!</strong> Há algo errado com os dados passados.<br><br>
         <ul>
-        @foreach ($errors->all() as $error)
+            @foreach ($errors->all() as $error)
 
             <li>{{ $error }}</li>
 
-        @endforeach
+            @endforeach
         </ul>
     </div>
 
@@ -39,7 +40,7 @@
             <div class="form-group">
                 <strong>Nome:</strong>
 
-                {!! Form::text('name', null, array('placeholder' => 'Nome','class' => 'form-control')) !!}
+                {!! Form::text('nome', null, array('placeholder' => 'Nome','class' => 'form-control')) !!}
 
             </div>
         </div>
@@ -53,37 +54,27 @@
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>x</strong>
-
-                
-
+                <strong>Data de nascimento:</strong>
+                {!! Form::date('nascimento', null, array('placeholder' => 'Data de nascimento','class' => 'form-control'))
+                !!}
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>x</strong>
-
-               
-
-            </div>
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Perfil:</strong>
-
-                {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
-
+                <strong>Endereço:</strong>
+                {!! Form::text('endereco', null, array('placeholder' => 'Endereço','class' => 'form-control')) !!}
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Gravar</button>
         </div>
 
     </div>
+
 </div>
+
 {!! Form::close() !!}
 
 @endsection

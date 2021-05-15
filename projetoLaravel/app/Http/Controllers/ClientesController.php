@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use App\Models\Clientes;
+use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-use DB;
-use Hash;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ClientesController extends Controller
 {
@@ -15,6 +14,13 @@ class ClientesController extends Controller
     /*  public function __construct() {
             $this->middleware('auth');
     } */
+
+    public function __construct() {
+        $this->middleware('permission:cliente-list',['only' => ['index', 'show']]);
+        $this->middleware('permission:cliente-create',['only' => ['create', 'store']]);
+        $this->middleware('permission:cliente-edit',['only' => ['edit', 'update']]);
+        $this->middleware('permission:cliente-delete',['only' => ['destroy', 'show']]);
+    }
 
     public function listar() {
         $clientes = Clientes::all();
@@ -31,22 +37,19 @@ class ClientesController extends Controller
     public function create()
     {
         $roles = Role::pluck('name', 'name')->all();
-        return view('clientes.create');
+
+        return view('clientes.create', compact('roles'));
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, 
-                       ['name' => 'required',
-                        'email' => 'required | email | unique:users, email',
-                        'roles' => 'required']);
+        // Validação de campos
+        $this->validate($request,
+            ['nome' => 'required',
+            'email' => 'required|email|unique:users,email']);
 
         $input = $request->all();
-
-        $user = Clientes::create($input);
-
-        $user->assignRole($request->input('roles'));
-
+        Clientes::create($input);
         return redirect()->route('clientes.index')->with('success', 'Cliente criado com sucesso!');
     }
 
@@ -59,28 +62,22 @@ class ClientesController extends Controller
     public function edit($id)
     {
         $cliente = Clientes::find($id);
-        $roles = Role::pluck('name', 'name')->all();
-        $clienteRole = $cliente->roles->pluck('name', 'name')->all();
-        
-        return view('clientes.edit', compact('cliente', 'roles', 'clienteRole'));
+    
+        return view('clientes.edit', compact('cliente'));
     }
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, 
-                       ['name' => 'required',
-                        'email' => 'required | email | unique:users, email',
-                        'roles' => 'required']);
+        // Validação de campos
+        $this->validate($request,
+            ['nome' => 'required',
+            'email' => 'required|email|unique:users,email']);
 
         $input = $request->all();
 
         $cliente = Clientes::find($id);
 
         $cliente->update($input);
-
-        DB::table('model_has_roles')->where('model_id', $id)->delete();
-
-        $cliente->assignRole($request->input('roles'));
 
         return redirect()->route('clientes.index')->with('success', 'Cliente atualizado com sucesso!');
     }
