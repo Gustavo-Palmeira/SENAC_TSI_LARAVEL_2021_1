@@ -34,4 +34,4 @@ Route::group(['middleware' => 'auth.jwt','prefix' => 'v1/vendas'], function(){
 
 Route::post('login', [APIController::class, 'login']);
 
-Route::delete('logout', [APIController::class, 'logout']);
+Route::get('logout', [APIController::class, 'logout']);
